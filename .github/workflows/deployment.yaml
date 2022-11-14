@@ -32,6 +32,6 @@ jobs:
     # Build the Docker image
     - name: Build docker image
       run: |-
-        docker build ./app -t  sreyo.jfrog.io/gptest-docker-gptestcluster-local/gpappimage
-        docker push sreyo.jfrog.io/gptest-docker-gptestcluster-local/gpappimage
+        docker build ./app -t  sreyo.jfrog.io/gptest-docker-gptestcluster-local/gpappimage-docker
+        docker push sreyo.jfrog.io/gptest-docker-gptestcluster-local/gpappimage-docker
   
