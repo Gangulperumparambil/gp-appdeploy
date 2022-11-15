@@ -35,7 +35,7 @@ jobs:
         docker build ./app -t  sreyo.jfrog.io/gptest-docker-gptestcluster-local/gpappimage-docker
         docker push sreyo.jfrog.io/gptest-docker-gptestcluster-local/gpappimage-docker
   
-  Job2:
+ Job2:
     needs: Job1 
     name: Deploy to gpdemocluster
     runs-on: ubuntu-latest
