@@ -37,7 +37,7 @@ jobs:
   
   Job2:
     needs: Job1 
-    name: Deploy to Prod
+    name: Deploy to gpdemocluster
     runs-on: ubuntu-latest
 
     steps:
@@ -73,18 +73,18 @@ jobs:
           kubectl create secret generic jfrog-secret --from-file=.dockerconfigjson=/home/runner/.docker/config.json  --type=kubernetes.io/dockerconfigjson
 
     # Deploy docorized app image to the EKS cluster
-    - name: Deploy Customer backend instance
+    - name: Deploy gpclient backend instance
       run: |-
-        kubectl apply -f deployment/customerprod.yaml
-        kubectl wait --timeout=360s --for=condition=ready pod -l app=customer
+        kubectl apply -f deployment/app.yaml
+        kubectl wait --timeout=360s --for=condition=ready pod -l app=gpcustomer
  
     # Restart all pods in production
     - name: Restart deployments
       run: |-
         kubectl rollout restart deploy       
-        kubectl rollout status deployment customer-prod-deployment  
+        kubectl rollout status deployment gpclient-deployment  
       
     # deploy gateway and virtual services
     - name: Direct traffic application
       run: |-
-        kubectl apply -f deployment/prodvs-customer.yaml
+        kubectl apply -f deployment/vs.yaml
