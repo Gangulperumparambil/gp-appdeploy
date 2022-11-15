@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gpclient-deployment
+  labels:
+    app: gpcustomer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gpcustomer   
+  template:
+    metadata:
+      labels: # labels to select/identify the deployment
+        app: gpcustomer       
+    spec:     # pod spec
+      imagePullSecrets:
+      - name: jfrog-secret
+      containers: 
+      - name: gpclient
+        image: sreyo.jfrog.io/gptest-docker-gptestcluster-local/gpappimage-docker # image we pushed
+        #imagePullPolicy: Never
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gpclient-service
+  labels:
+    app: gpcustomer
+spec:
+  selector:
+    app: gpcustomer 
+  ports:
+    - port: 3000
+      targetPort: 3000
